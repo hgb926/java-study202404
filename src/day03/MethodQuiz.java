@@ -10,11 +10,24 @@ public class MethodQuiz {
     static void printFoods() {
         System.out.println(Arrays.toString(foods));
     }
-    static String[] push(String newFood) {
-        String[] temp = new String[foods.length + 1];
+
+    // 사이즈를 조절해서 새 배열을 만드는 함수
+    static String[] makeNewArray(int size) {
+        return new String[foods.length + size];
+    }
+
+    // 기존 데이터를 복사하는 함수
+    static String[] copy(int size) {
+        // 사이즈가 1개 큰 배열
+        String[] temp = makeNewArray(size);
         for (int i = 0; i < foods.length; i++) {
             temp[i] = foods[i];
         }
+        return temp;
+    }
+
+    static String[] push(String newFood) {
+        String[] temp = copy(1);
         temp[temp.length - 1] = newFood;
         foods = temp;
         return foods;
@@ -73,6 +86,7 @@ public class MethodQuiz {
 
 
     static String[] modify(int n, String food) {
+//      에러 방지 코드  if (n < 0 || n > foods.length - 1) return;
         foods[n] = food;
         return  foods;
     }
