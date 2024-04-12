@@ -15,10 +15,10 @@ public class StringCompare {
         System.out.println("myName = " + myName);
         System.out.println("inputName = " + inputName);
 
-        // String은 객체이고 new String이 생략된 거라
-        // 결국에는 stack이 아닌 heap에 저장된다, 따라서
+        // String 은 객체이고 new String 이 생략된 거라
+        // 결국에는 stack 이 아닌 heap 에 저장된다, 따라서
         // 변수는 주소값을 가지고 있게 되고, == 는
-        // 주소값을 비교하기 때문에 문자열이 같아도 false가 출력된다.
+        // 주소값을 비교하기 때문에 문자열이 같아도 false 가 출력된다.
         // 그리하여 문자열을 비교할땐 .equals()
 
 
