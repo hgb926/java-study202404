@@ -15,27 +15,26 @@ public class Player {
     // 그리고 가장 첫줄에 써야 함.
 
     public Player() {
-        this("이름없는캐릭터", 1, 50);
-        System.out.println("1번 생성자 호출!");
+        this("이름없는캐릭터", 1, 50); // 1번 생성자(기본생성자)는
+        // 매개변수를 받고 있지는 않지만 안에 있는 함수가
+        // 매개변수가 3개이기 때문에 4번 생성자를 부른다.
+        // 실질적인 값 세팅은 4번 생성자가 해주는 것.
+        System.out.println("1번 생성자"); // 무과금
     }
+
 
     Player(String nickName) {
         this(nickName, 1, 50);
-        System.out.println("2번 생성자 호출!");
-//        this.nickName = nickName; // this.nickName은 필드의 nickName을 일컫고 nickName은 지역변수를 일컫는다
-//        this.level = 1;
-//        this.hp = 50;
+        System.out.println("2번 생성자"); // 무과금, 닉네임만 정함 매개변수 1
     }
 
     public Player(String nickName, int level) {
         this(nickName, level, 999);
-        System.out.println("3번 생성자 호출!");
-//        this.nickName = nickName;
-//        this.level = level;
+        System.out.println("3번 생성자"); // 과금유저, 닉네임 레벨 정함 매개변수 2개
     }
 
     public Player(String nickName, int level, int hp) {
-        System.out.println("4번 생성자 호출!");
+        System.out.println("4번 생성자"); // 모든 설정 매개변수로 받음 매개변수 3
         this.nickName = nickName;
         this.level = level;
         this.hp = hp;

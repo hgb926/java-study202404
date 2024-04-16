@@ -1,5 +1,7 @@
 package day05.player;
 
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -13,7 +15,9 @@ public class Main {
         insultKing.attack(parking);
 
 
-        Player p1 = new Player("하하호호");
+        Player p1 = new Player("ㅎㅎ");
+        System.out.println("p1 = " + p1);
 
+        
     }
 }
