@@ -20,5 +20,13 @@ public class Test {
 //      Member[] members = {m1, m2, new Member(), new Member()}; // 이렇게도 가능하다.
 
 
+
+        MemberRepository mr = new MemberRepository();
+        MemberView mv = new MemberView();
+
+        Member newMember = new Member("ddd@fff.com", "2646", "찰떡이", "남성", 15);
+        mr.addNewMember(newMember);
+
+        mv.showMembers();
     }
 }
