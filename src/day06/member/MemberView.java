@@ -6,7 +6,7 @@ import util.SimpleInput;
 public class MemberView {
 
     // 객체의 협력
-    MemberRepository mr;
+    MemberRepository mr; // 의존관계
     SimpleInput si;
 
     MemberView() {
@@ -52,7 +52,8 @@ public class MemberView {
         System.out.println("* 3. 전체회원 정보 조회하기");
         System.out.println("* 4. 회원 정보 수정하기");
         System.out.println("* 5. 회원 탈퇴하기");
-        System.out.println("* 6. 프로그램 종료");
+        System.out.println("* 6. 회원 복구하기");
+        System.out.println("* 7. 프로그램 종료");
         System.out.println("=============================");
 
         String menuNumber = si.input("- 메뉴 번호: ");
@@ -65,8 +66,7 @@ public class MemberView {
         if (exit.equals("y")) {
             System.out.println("프로그램을 종료합니다!");
             return true;
-        }
-        else {
+        } else {
             System.out.println("프로그램 종료를 취소합니다.");
             return false;
         }
@@ -136,6 +136,24 @@ public class MemberView {
         } else {
             System.out.println("\n# 해당 회원은 존재하지 않습니다.");
         }
+    }
 
+    // 회원 복구에 관련한 입출력 처리
+    public void restoreMember() {
+        String inputEmail = si.input("# 복구하실 회원의 이메일을 입력하세요.\n>> ");
+
+        // 이메일이 일치하는 회원이 복구리스트에 있는지 조회
+        Member foundMember = mr.findRestoreMemberByEmail(inputEmail);
+
+        if (foundMember != null) {
+            // 패스워드 검사
+            String inputPw = si.input("# 비밀번호를 입력: ");
+            if (inputPw.equals(foundMember.password)) {
+                mr.restore(inputEmail);
+                System.out.printf("# %s님의 회원정보가 복구되었습니다.\n", foundMember);
+            } else {
+                System.out.println("\n# 해당 회원은 복구대상이 아닙니다.");
+            }
+        }
     }
 }

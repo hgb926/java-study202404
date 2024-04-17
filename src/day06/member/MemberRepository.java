@@ -1,14 +1,24 @@
 package day06.member;
 
+import java.util.Arrays;
+
 // 역할: 회원 배열을 관리하는 역할 - 회원 데이터 저장소
 public class MemberRepository {
 
     // 필드
+    // const members = [{}, {}, {}];
 //    static Member[] members; // 현재 관리되는 회원 배열
 //    static Member[] restoreList; // 삭제된 회원들이 모일 배열
 
-    MemberList members;
-    MemberList restoreList;
+
+    // const members = {
+    //      mArr: [{}, {}, {}],
+    //      push: function() {}
+    //  };
+    MemberList members; // 의존관계 (연락처를 가지고 있다는 느낌)
+    MemberList restoreList; // 의존관계
+    // 배열이 두개 나오니까 메서드들이 하나의 배열에 종속된 것을 해결하기
+    // 위해 memberList 클래스를 설계.
 
     // 생성자
     MemberRepository() {
@@ -24,6 +34,12 @@ public class MemberRepository {
 
         this.restoreList = new MemberList();
     }
+
+    // new Member(); // 1개의 멤버 객체를 생성
+    // new Member[]; // 여러개의 멤버 객체를 저장할 배열을 생성
+
+
+
 
     // 메서드
 
@@ -101,6 +117,22 @@ public class MemberRepository {
 //        }
 //        members = temp;
 
-        members.remove(index);
+        // members 배열에서 삭제 후 삭제된 member 를 리턴받음
+        Member removed = members.remove(index);
+        restoreList.push(removed);
+
+//        System.out.println(Arrays.toString(members.mArr));
+//        System.out.println(Arrays.toString(restoreList.mArr));
+    }
+
+
+    public Member findRestoreMemberByEmail(String inputEmail) {
+        return restoreList.get(inputEmail);
+    }
+
+    public void restore(String inputEmail) {
+        int index = restoreList.findIndex(inputEmail);
+        Member removed = restoreList.remove(index);
+        members.push(removed);
     }
 }

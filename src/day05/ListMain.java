@@ -4,8 +4,8 @@ public class ListMain {
 
     public static void main(String[] args) {
 
-        StringList foods = new StringList();
-        StringList userNames = new StringList();
+        StringList foods = new StringList(); // sArr 이 탄생하고 이름은 foods 를 부여
+        StringList userNames = new StringList(); // foods, userNames 는 인스턴스
 
         // 배열 내부 데이터 수 확인
         // foods 는 배열타입이 아니다, StringList이라는 타입이고
