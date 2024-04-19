@@ -60,8 +60,12 @@ public class Main {
 
         // upCasting이 한번 이루어 졌다면, 밑에 방법을 통해
         // downCasting을 할 수 있다.
-        Car ttt = new Tucson();
-        Tucson tts = (Tucson) ttt;
+//        Car ttt = new Tucson();
+//        Tucson tts = (Tucson) ttt;
+        System.out.println("=======================");
+
+        driver.drive(new Tucson());
+
 
     }
 }

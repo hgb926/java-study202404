@@ -6,10 +6,10 @@ import java.util.Arrays;
 public class StringList {
 
     // 스트링 배열을 필드로 등록
-    String[] sArr;
+    public String[] sArr;
 
     // 생성자를 통해 스트링 배열을 초기화함
-    StringList() {
+   public StringList() {
         sArr = new String[0];
     }
 
@@ -19,12 +19,12 @@ public class StringList {
     }
 
     // 배열 내부 요소의 수를 알려주는 메서드
-    int size() {
+   public int size() {
         return sArr.length;
     }
 
     // 배열에 맨 끝에 데이터를 추가하는 메서드
-    void push(String newData) {
+    public void push(String newData) {
         String[] temp = new String[sArr.length + 1];
         for (int i = 0; i < sArr.length; i++) {
             temp[i] = sArr[i];
@@ -34,7 +34,7 @@ public class StringList {
     }
 
     // 배열 맨 끝데이터 제거
-    void pop() {
+    public void pop() {
         String[] temp = new String[sArr.length - 1];
         for (int i = 0; i < temp.length; i++) {
             temp[i] = sArr[i];
@@ -96,7 +96,7 @@ public class StringList {
     }
 
 
-    void set(int index, String newData) {
+    public void set(int index, String newData) {
         if (index < 0 || index > sArr.length - 1) return;
         sArr[index] = newData;
     }
