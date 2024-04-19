@@ -1,5 +1,7 @@
 package day07.player;
 
+import java.util.Arrays;
+
 public class Mage extends Player {
 
 
@@ -11,8 +13,13 @@ public class Mage extends Player {
     }
 
 
-    public void thunderbolt(Mage... target) {
-
+    public void thunderbolt(Player... target) {
+        for (Player player : target) {
+        int damage = (int) (Math.floor(Math.random() * 6 ) + 10);
+//            System.out.println(player.nickname);
+            player.hp -= damage;
+            System.out.printf("%s님이 썬더볼트를 맞았습니다. (남은 체력: %d)\n", player.nickname, player.hp);
+        }
     }
 
     public void showStatus() {
