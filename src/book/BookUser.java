@@ -1,15 +1,15 @@
 package book;
 
-import day03.member.Gender;
 
-// 역할: 1명의 도서관 회원정보 가진 객체
+//역할: 1명의 도서관 회원정보 가진 객체
 public class BookUser {
 
     private String name; // 도서관 회원 이름
     private int age; // 도서관 회원 나이
     private Gender gender; // 성별
     private int couponCount; // 쿠폰 갯수
-    private Book[] rentBookList; // 빌린 책 정보들
+
+    private BookList rentalBookList; // 대여한 책들 정보
 
     public BookUser() {
     }

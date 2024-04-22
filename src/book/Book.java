@@ -1,12 +1,11 @@
 package book;
 
 
-// 역할: 1권의 책정보를 가진 객체
 public class Book {
+
     private String title; // 도서명
     private String author; // 저자명
     private String publisher; // 출판사명
-
 
     public Book() {}
 
@@ -40,7 +39,6 @@ public class Book {
         this.publisher = publisher;
     }
 
-    // 책 정보 문자열 생성
     public String info() {
         // 문자열 글자수 얻기 length()
         int length = this.title.length();

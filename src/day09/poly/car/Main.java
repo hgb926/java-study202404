@@ -3,6 +3,7 @@ package day09.poly.car;
 public class Main {
     public static void main(String[] args) {
 
+//        new Car(); 를 할 필요가 없다. 껍데기일 뿐. (추상클래스)
         Car sonata1 = new Sonata();
         Car sonata2 = new Sonata();
         Sonata sonata3 = new Sonata();
@@ -34,7 +35,7 @@ public class Main {
 
         Sonata mySonata = new Sonata();
         mySonata.accelerate();
-        mySonata.joinSonataClub();
+
 
         Car[] cars = new Car[3];
         cars[0] = mySonata;
@@ -50,7 +51,7 @@ public class Main {
         // 즉, 부모객체를 자식타입으로 내릴 수는 없다.
         Sonata car = (Sonata) shop.exportCar(3000);
         car.accelerate();
-        car.joinSonataClub();
+
 
         System.out.println("=======================");
 

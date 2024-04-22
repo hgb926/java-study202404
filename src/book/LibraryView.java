@@ -1,16 +1,14 @@
 package book;
 
-import day03.member.Gender;
-import day05.StringList;
 
+import day10.exception.InvalidLoginInputException;
 
 import static util.SimpleInput.*;
 
-
-// 역할: 도서 관리 프로그램에서 입출력을 담당하는 객체
+// 역할: 도서관리 프로그램에서 입출력을 담당하는 객체
 public class LibraryView {
 
-    private LibraryRepository repository; // 3. 얘는 책 내용을 알고있다
+    private LibraryRepository repository;
 
     public LibraryView() {
         this.repository = new LibraryRepository();
@@ -19,21 +17,29 @@ public class LibraryView {
     // 회원 정보를 입력받는 기능
     public void makeNewBookUser() {
         System.out.println("\n# 회원 정보를 입력해주세요.");
-        String name = input("이름: ");
-        int age = Integer.parseInt(input("나이: "));
-        Gender gender = inputGender();
-        // LibraryView 는 입출력만 담당하기에, 입력받은 정보를 Repository 에 보낸다
-        repository.saveBookUser(new BookUser(name, age, gender, 0));
-        {
+        String name = input("# 이름: ");
+        int age = 0;
 
+        while (true) {
+            try {
+                age = Integer.parseInt(input("# 나이: "));
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println();
+                System.out.println("입력값은 숫자만 해당됩니다.");
+                System.out.println();
+            }
         }
 
+        Gender gender = inputGender();
+
+        // 입력된 데이터를 저장시켜야 함.
+        repository.saveBookUser(new BookUser(name, age, gender, 0));
     }
 
-
+    // 성별을 정확히 입력할때가지 무한히 입력받고
+    // 정확히 입력하면 해당 성별 문자를 리턴
     private Gender inputGender() {
-        // 성별을 정확히 입력할때까지 무한히 입력받고
-        // 정확히 입력하면 해당 성별 문자를 리턴
         while (true) {
             String gender = input("# 성별(M/F): ").toUpperCase();
             if (gender.equals("M")) return Gender.MALE;
@@ -52,37 +58,47 @@ public class LibraryView {
         System.out.println("# 9. 프로그램 종료하기");
     }
 
+    // 코드의 흐름을 캡슐화
     public void start() {
         makeNewBookUser();
+
         while (true) {
             showMainScreen();
-            String menuNum = input("- 메뉴 번호: ");
+            String menuNum = input("- 메뉴 번호 : ");
 
             switch (menuNum) {
                 case "1":
-                    showMyPage();
+                    displayUserInfo();
                     break;
                 case "2":
-                    displayAllbooks();
+                    displayAllBooks();
                     break;
                 case "3":
-                    searchBookByTitle();
+                    searchBooksByTitle();
                     break;
                 case "4":
                     rentBook();
                     break;
                 case "9":
-                    System.out.println("# 프로그램을 종료합니다!");
-                    break;
+                    System.out.println("# 프로그램을 종료합니다!!");
+                    return;
                 default:
-                    System.out.println("# 올바른 메뉴 번호를 입력하세요.");
-
+                    System.out.println("# 올바른 메뉴 번호를 입력하세요!");
             }
         }
     }
 
+    private void displayUserInfo() {
+        BookUser user = repository.getBookUser();
+        System.out.println("\n******** 회원님 정보 ********");
+        System.out.println("# 회원명: " + user.getName());
+        System.out.println("# 나이: " + user.getAge());
+        System.out.println("# 성별: " + user.getGenderToString());
+        System.out.println("# 쿠폰개수: " + user.getCouponCount());
+    }
+
     private void rentBook() {
-        displayAllbooks();
+        displayAllBooks();
         String bookNum = input("- 대여할 도서 번호 입력: ");
         // 저장소에다가 대여가능한지 여부 검증
         RentStatus status = repository.rentBook(Integer.parseInt(bookNum));
@@ -96,27 +112,8 @@ public class LibraryView {
         }
     }
 
-
-    private void showMyPage() {
-        BookUser user = LibraryRepository.getUser(); // <-
-        System.out.println("******** 회원님 정보 ********");
-        System.out.println("# 회원명: " + user.getName());
-        System.out.println("# 나이: " + user.getAge());
-        System.out.println("# 성별: " + user.getGenderToString());
-        System.out.println("# 쿠폰개수: " + user.getCouponCount());
-    }
-
-    // 전체 도서 정보를 출력
-    private void displayAllbooks() {
-        System.out.println("\n============ 전체 도서 목록 ============");
-        Book[] informationList = repository.getAllBooksInfo();
-        for (Book book : informationList) {
-            System.out.println(book.info());
-        }
-    }
-
-    // 책 제목으로 검색어 포함된 책 내용 출력하기
-    private void searchBookByTitle() {
+    // 책 제목으로 검색어포함된 책 내용 출력하기
+    private void searchBooksByTitle() {
         String keyword = input("# 검색어: ");
 
         Book[] searchBooks = repository.searchBookList(keyword);
@@ -131,14 +128,15 @@ public class LibraryView {
         }
     }
 
+    // 전체 도서 정보를 출력
+    private void displayAllBooks() {
+        System.out.println("\n=============== 전체 도서 목록 ================");
+        Book[] informationList = repository.getAllBooksInfo();
 
+        for (int i = 0; i < informationList.length; i++) {
+            Book book = informationList[i];
+            System.out.printf("%d. %s\n", i+1, book.info());
+        }
 
-
-
+    }
 }
-
-
-
-
-
-

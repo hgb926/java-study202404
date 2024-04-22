@@ -7,8 +7,11 @@ package day05;
 //import day05.juice.Peach;
 
 // 한번에 불러오는 방법
+import book.*;
+
 import day05.juice.*;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -23,9 +26,6 @@ public class PackageMain {
         new Apple(); // juice
         new Banana();
         new Peach();
-
-
-
 
 
     }

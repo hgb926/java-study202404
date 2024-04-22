@@ -3,7 +3,6 @@ package book;
 
 public class BookList {
 
-
     private Book[] bArr;
 
     private static final int NOT_FOUND = -1;
@@ -13,7 +12,7 @@ public class BookList {
     }
 
     // 맨 끝에 추가
-    void push(Book newBook) {
+    public void push(Book newBook) {
         Book[] temp = new Book[this.bArr.length + 1];
         for (int i = 0; i < this.bArr.length; i++) {
             temp[i] = this.bArr[i];

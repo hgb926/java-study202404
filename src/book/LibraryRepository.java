@@ -6,9 +6,8 @@ public class LibraryRepository {
 
     private static BookUser user; // 회원은 한명
     private static BookList bookList;  // 책은 여러개
-    private LibraryRepository repository;
 
-    // 정적 초기화자 : static 필드 초기값 설정
+    // 정적 초기화자 : static필드 초기값 설정
     static {
         bookList = new BookList();
 
@@ -20,7 +19,7 @@ public class LibraryRepository {
         bookList.push(new CartoonBook("이세계로 전이했으니 치트를 살려 마법검사가 되기로 했다", "Shinkoshoto", "대원씨아이", 12));
     }
 
-    // 저장소에 user 를 저장
+    // 저장소에 user를 저장
     public void saveBookUser(BookUser bookUser) {
         user = bookUser;
     }
@@ -30,18 +29,13 @@ public class LibraryRepository {
         return bookList.getbArr();
     }
 
-    public static BookUser getUser() {
-        return user;
-    }
-
-
-    // 검색
     public Book[] searchBookList(String keyword) {
 
         // 검색어에 걸린 책들을 모아두는 리스트
         BookList filteredList = new BookList();
+
         for (Book book : bookList.getbArr()) {
-            if (book.getTitle().equals(keyword)) {
+            if (book.getTitle().contains(keyword)) {
                 filteredList.push(book);
             }
         }
@@ -49,7 +43,7 @@ public class LibraryRepository {
     }
 
     /**
-     *  주어진 책 번호에 맞는 책이 대여 가능한지에 대한 상태상수를 리턴
+     * 주어진 책 번호에 맞는 책이 대여 가능한지에 대한 상태상수를 리턴
      * @param bookNum - 주어진 책 번호
      * @return - 대여 가능 상태를 반환
      */
@@ -61,10 +55,8 @@ public class LibraryRepository {
         // 2-1. 요리책일 경우
         if (wishBook instanceof CookBook) {
             // 3. 쿠폰 유무를 확인
-            // 이미 Book 으로 upCasting 되어있어서 isCoupon 을 사용하려면
-            // downCasting 을 해줘야 한다.
             CookBook cookBook = (CookBook) wishBook;
-            if (cookBook.isCoupon()) {
+            if(cookBook.isCoupon()) {
                 // 회원의 쿠폰개수를 업데이트
                 user.setCouponCount(user.getCouponCount() + 1);
                 return RentStatus.RENT_SUCCESS_WITH_COUPON;
@@ -74,52 +66,19 @@ public class LibraryRepository {
         }
         // 2-2. 만화책일 경우
         else if (wishBook instanceof CartoonBook) {
-            // 3. 회원이 나이 검증
-            // 마찬가지로 downCasting
+            // 3. 회원의 연령이 만화책의 제한연령보다 높은지 확인
             CartoonBook cartoonBook = (CartoonBook) wishBook;
-            if (user.getAge() >= ((CartoonBook) wishBook).getAccessAge()) {
+            if (user.getAge() >= cartoonBook.getAccessAge()) {
                 return RentStatus.RENT_SUCCESS;
             } else {
                 return RentStatus.RENT_FAIL;
             }
         }
-
         return RentStatus.RENT_FAIL;
-
     }
 
+    public BookUser getBookUser() {
 
+        return user;
+    }
 }
-
-
-
-
-//    public String[] getBookInformationList() {
-//        String[] sArr = new String[bookList.length];
-//        for (int i = 0; i < bookList.length; i++) {
-//            Book book = bookList[i];
-//            String infoMessage = book.info();
-//            sArr[i] = infoMessage;
-//        }
-//        return sArr;
-//    }
-
-//    public String[] answerToSearch(String question) {
-//        String[] sArr = new String[bookList.length];
-//
-//        for (int i = 0; i < bookList.length; i++) {
-//            Book book = bookList[i];
-//            String title = book.getTitle();
-//            sArr[i] = title;
-//        }
-//
-//        String[] answer = new String[0];
-//        for (int i = 0; i < bookList.length; i++) {
-//            if (sArr[i].contains(question)) {
-//                answer[i] = sArr[i];
-//            }
-//        }
-//    }
-
-
-
