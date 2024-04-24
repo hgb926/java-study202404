@@ -1,14 +1,21 @@
 package day11.song;
 
+import day12.io.FileExample;
+import day12.io.obj.SaveSnack;
+
+import java.io.*;
 import java.util.*;
 
 // 가수 객체 여러개를 관리 ( 조회, 수정, 삭제, 생성, 탐색, 정렬 ... )
 public class ArtistRepository {
 
-//    private static Artist artist = new Artist();
+    //    private static Artist artist = new Artist();
 //     가수들을 담을 자료구조 선언
     // key: 가수이름, value: 노래명
     private static Map<String, Artist> artistMap = new HashMap<>(); // HashMap
+
+    // 세이브 파일 위치 경로
+    public static final String SAVE_PATH = FileExample.ROOT_PATH + "/hello/song.sav";
 
     public static int getArtistMapSize() {
         return artistMap.size();
@@ -43,10 +50,34 @@ public class ArtistRepository {
         Artist foundArtist = artistMap.get(artistName);
         return foundArtist.getSongList();
     }
+
+
+    public void save() {
+
+        try (FileOutputStream fos = new FileOutputStream(SAVE_PATH)) {
+
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(artistMap);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void load() {
+        File file = new File(SAVE_PATH);
+        if (file.exists()) {
+            try (FileInputStream fis = new FileInputStream(SAVE_PATH)) {
+
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                this.artistMap = (Map<String, Artist>) ois.readObject();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
-    // 가수 정보 생성
+// 가수 정보 생성
 
-    // 가수 정보 탐색
-
-    // ...
-
+// 가수 정보 탐색

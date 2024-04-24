@@ -201,4 +201,8 @@ public class MemberView {
     public static boolean containsNumber(String str) {
         return Pattern.compile("[0-9]").matcher(str).find();
     }
+
+    public void load() {
+        mr.loadFile();
+    }
 }

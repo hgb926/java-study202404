@@ -15,6 +15,9 @@ public class ArtistView {
 
     // 프로그램 실행
     public static void start() {
+
+        repository.load();
+
         while (true) {
             System.out.println("********** 음악 관리 프로그램 ***********");
             System.out.printf("# 현재 등록된 가수: %d\n", repository.getArtistMapSize());
@@ -49,8 +52,8 @@ public class ArtistView {
             // 노래목록 가져와서 출력
             Set<String> songList = repository.getSongList(artistName);
             int num = 1;
-                System.out.printf("\n# %s님의 노래목록 \n", artistName);
-                System.out.println("=================================");
+            System.out.printf("\n# %s님의 노래목록 \n", artistName);
+            System.out.println("=================================");
             for (String s : songList) {
                 System.out.printf("# %d. %s\n", num++, s);
             }
@@ -83,6 +86,6 @@ public class ArtistView {
                 System.out.printf("\n# [%s]곡은 이미 등록된 노래입니다.\n", songName);
             }
         }
+        repository.save();
     }
-
 }

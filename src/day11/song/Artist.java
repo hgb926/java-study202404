@@ -1,17 +1,18 @@
 package day11.song;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Artist {
+public class Artist implements Serializable {
 
     private String artistName; // 가수명
     private Set<String> songList; // 노래목록
 
     // 생성자
-   public Artist(String artistName) {
-       this.artistName = artistName;
-       this.songList = new HashSet<>(); // 비어있는 set
-   }
+    public Artist(String artistName) {
+        this.artistName = artistName;
+        this.songList = new HashSet<>(); // 비어있는 set
+    }
 
     // getter, setter
     public String getArtistName() {
